@@ -21,38 +21,54 @@ EID EntityManager::CreateEntity()
 	return e.id;
 }
 
-EID EntityManager::CreateEntity(vector<Module *> _modules)
+EID EntityManager::CreateEntity(vector<Component *> _components)
 {
 	entity e;
 	e.id = GetValidID();
-	e.modules = _modules;
+	e.components = _components;
 
 	m_entities.push_back(e);
 
 	return e.id;
 }
 
+void EntityManager::DestroyEntity(EID &_entity)
+{
+	int index = GetEntityIndex(_entity);
 
-Module * EntityManager::GetModule(EID _entity, MType _type)
+	if (index >= 0)
+	{
+		m_entities.erase(m_entities.begin() + index);
+		_entity = 0;
+	}
+	
+}
+
+
+Component * EntityManager::GetComponent(EID _entity, CType _type)
 {
 	bool found = false;
-	Module * module = nullptr;
+	Component * component = nullptr;
+	int index = GetEntityIndex(_entity);
 
-	for (UINT m = 0; m < m_entities.size() && !found; ++m)
+	if (index >= 0)
 	{
-		if (m_entities[_entity].modules[m]->type == _type)
+		for (UINT c = 0; c < m_entities[index].components.size() && !found; ++c)
 		{
-			found = true;
-			module = m_entities[_entity].modules[m];
+			if (m_entities[index].components[c]->type == _type)
+			{
+				found = true;
+				component = m_entities[index].components[c];
+			}
 		}
 	}
 
-	return module;
+	return component;
 }
 
 EID EntityManager::GetValidID()
 {
-	EID eid = 0;
+	EID eid = 1;
 	for (EID i = 0; i < m_entities.size(); ++i)
 	{
 		if (m_entities[i].id == eid)
@@ -60,4 +76,20 @@ EID EntityManager::GetValidID()
 	}
 
 	return eid;
+}
+
+int EntityManager::GetEntityIndex(EID _entity)
+{
+	bool found = false;
+	UINT e;
+
+	for (e = 0; e < m_entities.size() && !found; ++e)
+	{
+		if (m_entities[e].id == _entity)
+			found = true;
+	}
+
+	e = ((e > 0) ? (e - 1) : e);
+
+	return (found ? e : -1);
 }
