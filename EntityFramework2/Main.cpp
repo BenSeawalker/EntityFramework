@@ -16,6 +16,10 @@ int main()
 	Position * pos = static_cast<Position *>(EM.GetComponent(eid, POSITION));
 	cout << eid << " " << pos->type << " " << pos->x << " " << pos->y << endl;
 
+	EM.DestroyComponent(eid, POSITION);
+	cout << EM.GetComponent(eid, POSITION) << endl;
+	
+
 	EID e1 = EM.CreateEntity();
 	EID e2 = EM.CreateEntity();
 	EID e3 = EM.CreateEntity();
@@ -25,6 +29,8 @@ int main()
 
 	EM.DestroyEntity(eid);
 	EID e4 = EM.CreateEntity();
+
+	EM.DestroyComponent(eid, POSITION);
 
 	EM.DestroyEntity(eid);
 	EM.GetComponent(eid, POSITION);

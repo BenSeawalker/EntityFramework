@@ -7,29 +7,30 @@ EntityManager::EntityManager()
 
 
 EntityManager::~EntityManager()
-{}
+{
+	
+}
 
 
 
 EID EntityManager::CreateEntity()
 {
-	entity e;
-	e.id = GetValidID();
+	EID eid;
+	eid = GetValidID();
 
-	m_entities.push_back(e);
+	m_entities.insert(m_entities.begin(), pair<EID, vector<Component *>>(eid, {}));
 
-	return e.id;
+	return eid;
 }
 
 EID EntityManager::CreateEntity(vector<Component *> _components)
 {
-	entity e;
-	e.id = GetValidID();
-	e.components = _components;
+	EID eid;
+	eid = GetValidID();
 
-	m_entities.push_back(e);
+	m_entities.insert(m_entities.begin(), pair<EID, vector<Component *>>(eid, _components));
 
-	return e.id;
+	return eid;
 }
 
 void EntityManager::DestroyEntity(EID &_entity)
@@ -38,10 +39,26 @@ void EntityManager::DestroyEntity(EID &_entity)
 
 	if (index >= 0)
 	{
-		m_entities.erase(m_entities.begin() + index);
+		m_entities.erase(m_entities.find(_entity));
 		_entity = 0;
 	}
 	
+}
+
+void EntityManager::DestroyComponent(EID _entity, CType _type)
+{
+	int entity_index = GetEntityIndex(_entity);
+	if (entity_index >= 0)
+	{
+		int component_index = GetComponentIndex(_entity, _type);
+
+		if (component_index >= 0)
+		{
+			entity * e = &m_entities[entity_index];
+			delete e->components[component_index];
+			e->components.erase(e->components.begin() + component_index);
+		}
+	}
 }
 
 
@@ -49,22 +66,35 @@ Component * EntityManager::GetComponent(EID _entity, CType _type)
 {
 	bool found = false;
 	Component * component = nullptr;
-	int index = GetEntityIndex(_entity);
+	int index = GetComponentIndex(_entity, _type);
 
 	if (index >= 0)
+		component = m_entities[index].components[index];
+
+	return component;
+}
+
+int EntityManager::GetComponentIndex(EID _entity, CType _type)
+{
+	bool found = false;
+	int entity_index = GetEntityIndex(_entity);
+	int component_index = -1;
+
+	if (entity_index >= 0)
 	{
-		for (UINT c = 0; c < m_entities[index].components.size() && !found; ++c)
+		for (UINT c = 0; c < m_entities[entity_index].components.size() && !found; ++c)
 		{
-			if (m_entities[index].components[c]->type == _type)
+			if (m_entities[entity_index].components[c]->type == _type)
 			{
 				found = true;
-				component = m_entities[index].components[c];
+				component_index = c;
 			}
 		}
 	}
 
-	return component;
+	return component_index;
 }
+
 
 EID EntityManager::GetValidID()
 {
