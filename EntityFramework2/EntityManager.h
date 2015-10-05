@@ -16,12 +16,13 @@ class EntityManager
 {
 public:
 	typedef UINT EID;
+	typedef vector<Component *> ComponentList;
 
 	EntityManager();
 	~EntityManager();
 
 	EID CreateEntity();
-	EID CreateEntity(vector<Component *> _components);
+	EID CreateEntity(ComponentList &_components);
 
 	void DestroyEntity(EID &_entity);
 
@@ -30,11 +31,13 @@ public:
 
 	void DestroyComponent(EID _entity, CType _type);
 
+	vector<EID> GetEntitiesWithComponent(CType _type);
+	vector<EID> GetEntitiesWithComponents(vector<CType> _types);
+
 private:
-	map<EID, vector<Component *>> m_entities;
+	map<EID, ComponentList> m_entities;
 
 	EID GetValidID();
-	int GetEntityIndex(EID _entity);
 
 };
 

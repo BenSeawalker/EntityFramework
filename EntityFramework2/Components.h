@@ -1,5 +1,8 @@
 enum CType { POSITION, SPRITE };
 
+/////////////////////////////////////////////
+// COMPONENT
+/////
 struct Component
 {
 	CType type;
@@ -7,6 +10,9 @@ struct Component
 	Component(CType _type) : type(_type){};
 };
 
+/////////////////////////////////////////////
+// POSITION
+/////
 struct Position : Component
 {
 	int x;
@@ -16,6 +22,10 @@ struct Position : Component
 	Position(int _x, int _y) : Component(POSITION), x(_x), y(_y) {};
 };
 
+
+/////////////////////////////////////////////
+// SPRITE
+/////
 struct Sprite : Component
 {
 	char image;

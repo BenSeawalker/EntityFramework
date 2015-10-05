@@ -8,36 +8,39 @@ EntityManager::EntityManager()
 
 EntityManager::~EntityManager()
 {
-	
+	for each (auto iter_entity in m_entities)
+	{
+		auto components = iter_entity.second;
+		for (UINT i = 0; i < components.size(); ++i)
+			delete components[i];
+	}
 }
 
 
 
 EID EntityManager::CreateEntity()
 {
-	EID eid;
-	eid = GetValidID();
+	EID eid = GetValidID();
 
-	m_entities.insert(m_entities.begin(), pair<EID, vector<Component *>>(eid, {}));
+	m_entities[eid] = {};
 
 	return eid;
 }
 
-EID EntityManager::CreateEntity(vector<Component *> _components)
+EID EntityManager::CreateEntity(ComponentList &_components)
 {
-	EID eid;
-	eid = GetValidID();
+	EID eid = GetValidID();
 
-	m_entities.insert(m_entities.begin(), pair<EID, vector<Component *>>(eid, _components));
+	m_entities[eid] = _components;
 
 	return eid;
 }
 
 void EntityManager::DestroyEntity(EID &_entity)
 {
-	int index = GetEntityIndex(_entity);
+	auto iter_entity = m_entities.find(_entity);
 
-	if (index >= 0)
+	if (iter_entity != m_entities.end())
 	{
 		m_entities.erase(m_entities.find(_entity));
 		_entity = 0;
@@ -47,16 +50,16 @@ void EntityManager::DestroyEntity(EID &_entity)
 
 void EntityManager::DestroyComponent(EID _entity, CType _type)
 {
-	int entity_index = GetEntityIndex(_entity);
-	if (entity_index >= 0)
+	auto iter_entity = m_entities.find(_entity);
+	if (iter_entity != m_entities.end())
 	{
 		int component_index = GetComponentIndex(_entity, _type);
 
 		if (component_index >= 0)
 		{
-			entity * e = &m_entities[entity_index];
-			delete e->components[component_index];
-			e->components.erase(e->components.begin() + component_index);
+			auto components = iter_entity->second;
+			delete components[component_index];
+			components.erase(components.begin() + component_index);
 		}
 	}
 }
@@ -64,12 +67,12 @@ void EntityManager::DestroyComponent(EID _entity, CType _type)
 
 Component * EntityManager::GetComponent(EID _entity, CType _type)
 {
-	bool found = false;
 	Component * component = nullptr;
+	auto iter_entity = m_entities.find(_entity);
 	int index = GetComponentIndex(_entity, _type);
 
 	if (index >= 0)
-		component = m_entities[index].components[index];
+		component = iter_entity->second[index];
 
 	return component;
 }
@@ -77,14 +80,15 @@ Component * EntityManager::GetComponent(EID _entity, CType _type)
 int EntityManager::GetComponentIndex(EID _entity, CType _type)
 {
 	bool found = false;
-	int entity_index = GetEntityIndex(_entity);
+	auto iter_entity = m_entities.find(_entity);
 	int component_index = -1;
 
-	if (entity_index >= 0)
+	if (iter_entity != m_entities.end())
 	{
-		for (UINT c = 0; c < m_entities[entity_index].components.size() && !found; ++c)
+		auto components = iter_entity->second;
+		for (UINT c = 0; c < components.size() && !found; ++c)
 		{
-			if (m_entities[entity_index].components[c]->type == _type)
+			if (components[c]->type == _type)
 			{
 				found = true;
 				component_index = c;
@@ -96,30 +100,49 @@ int EntityManager::GetComponentIndex(EID _entity, CType _type)
 }
 
 
+
+vector<EID> EntityManager::GetEntitiesWithComponent(CType _type)
+{
+	vector<EID> entities;
+
+	for each (auto iter_entity in m_entities)
+	{
+		EID entity = iter_entity.first;
+		if (GetComponentIndex(entity, _type) >= 0)
+			entities.push_back(entity);
+	}
+
+	return entities;
+}
+
+
+vector<EID> EntityManager::GetEntitiesWithComponents(vector<CType> _types)
+{
+	vector<EID> entities;
+
+	for each (auto iter_entity in m_entities)
+	{
+		EID entity = iter_entity.first;
+
+		bool has_components = true;
+		for (UINT i = 0; i < _types.size() && has_components; ++i)
+			has_components = (GetComponentIndex(entity, _types[i]) == -1);
+
+		if (has_components)
+			entities.push_back(entity);
+	}
+
+	return entities;
+}
+
+
+
 EID EntityManager::GetValidID()
 {
 	EID eid = 1;
-	for (EID i = 0; i < m_entities.size(); ++i)
-	{
-		if (m_entities[i].id == eid)
-			++eid;
-	}
+
+	while (m_entities.find(eid) != m_entities.end())
+		++eid;
 
 	return eid;
-}
-
-int EntityManager::GetEntityIndex(EID _entity)
-{
-	bool found = false;
-	UINT e;
-
-	for (e = 0; e < m_entities.size() && !found; ++e)
-	{
-		if (m_entities[e].id == _entity)
-			found = true;
-	}
-
-	e = ((e > 0) ? (e - 1) : e);
-
-	return (found ? e : -1);
 }
