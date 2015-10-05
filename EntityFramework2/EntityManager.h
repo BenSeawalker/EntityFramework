@@ -4,6 +4,9 @@
 #include <vector>
 using std::vector;
 
+#include <map>
+using std::map;
+using std::pair;
 
 #include "Components.h"
 typedef unsigned int UINT;
@@ -23,16 +26,12 @@ public:
 	void DestroyEntity(EID &_entity);
 
 	Component * GetComponent(EID _entity, CType _type);
+	int GetComponentIndex(EID _entity, CType _type);
 
+	void DestroyComponent(EID _entity, CType _type);
 
 private:
-	struct entity
-	{
-		EID id;
-		vector<Component *> components;
-	};
-
-	vector<entity> m_entities;
+	map<EID, vector<Component *>> m_entities;
 
 	EID GetValidID();
 	int GetEntityIndex(EID _entity);
