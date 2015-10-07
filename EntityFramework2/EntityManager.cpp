@@ -86,18 +86,6 @@ void EntityManager::DestroyComponent(EID _entity, CType _type)
 }
 
 
-//template<typename T>
-//T * EntityManager::GetComponent(EID _entity, CType _type)
-//{
-//	T * component = nullptr;
-//	int index = GetComponentIndex(_entity, _type);
-//
-//	if (index >= 0)
-//		component = m_entities.find(_entity)->second[index];
-//
-//	return component;
-//}
-
 int EntityManager::GetComponentIndex(EID _entity, CType _type)
 {
 	int component_index = -1;
@@ -156,6 +144,17 @@ vector<EID> EntityManager::GetEntitiesWithComponents(vector<CType> _types)
 	}
 
 	return entities;
+}
+
+void EntityManager::AddSystem(System * _system)
+{
+	m_systems.push_back(_system);
+}
+
+void EntityManager::AddSystems(SystemList _systems)
+{
+	for each (auto system in _systems)
+		AddSystem(system);
 }
 
 

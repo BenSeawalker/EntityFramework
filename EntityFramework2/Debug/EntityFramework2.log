@@ -1,18 +1,49 @@
-﻿Build started 10/6/2015 5:51:53 PM.
-     1>Project "C:\Users\Ben Seawalker\Documents\Visual Studio 2015\Projects\EntityFramework\EntityFramework2\EntityFramework2.vcxproj" on node 2 (Build target(s)).
+﻿Build started 10/7/2015 11:47:17 AM.
+     1>Project "z:\documents\Visual Studio 2015\Projects\EntityFramework\EntityFramework2\EntityFramework2.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt EntityManager.cpp Main.cpp
-         EntityManager.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt EntityManager.cpp Main.cpp Render.cpp
+         Render.cpp
+         Main.cpp
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(12): error C2061: syntax error: identifier 'EntityManager'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(17): error C2061: syntax error: identifier 'EntityManager'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(19): error C2065: '_manager': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(19): error C2228: left of '.GetEntitiesWithComponents' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(19): note: type is 'unknown-type'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(21): error C3536: 'entities': cannot be used before it is initialized
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(21): error C3285: for each statement cannot operate on variables of type 'int'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): error C2065: '_manager': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): error C2228: left of '.GetComponent' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): note: type is 'unknown-type'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): error C2065: 'entity': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): error C2065: '_manager': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): error C2228: left of '.GetComponent' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): note: type is 'unknown-type'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): error C2065: 'entity': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(29): error C2228: left of '.size' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(29): note: type is 'int'
          Generating Code...
          Compiling...
-         Main.cpp
+         EntityManager.cpp
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(12): error C2061: syntax error: identifier 'EntityManager'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(17): error C2061: syntax error: identifier 'EntityManager'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(19): error C2065: '_manager': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(19): error C2228: left of '.GetEntitiesWithComponents' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(19): note: type is 'unknown-type'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(21): error C3536: 'entities': cannot be used before it is initialized
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(21): error C3285: for each statement cannot operate on variables of type 'int'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): error C2065: '_manager': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): error C2228: left of '.GetComponent' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): note: type is 'unknown-type'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(23): error C2065: 'entity': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): error C2065: '_manager': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): error C2228: left of '.GetComponent' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): note: type is 'unknown-type'
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(24): error C2065: 'entity': undeclared identifier
+     1>z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(29): error C2228: left of '.size' must have class/struct/union
+         z:\documents\visual studio 2015\projects\entityframework\entityframework2\systems.h(29): note: type is 'int'
          Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Ben Seawalker\Documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Ben Seawalker\Documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Ben Seawalker\Documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.lib" /MACHINE:X86 Debug\EntityManager.obj
-         Debug\Main.obj
-         EntityFramework2.vcxproj -> C:\Users\Ben Seawalker\Documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.exe
-     1>Done Building Project "C:\Users\Ben Seawalker\Documents\Visual Studio 2015\Projects\EntityFramework\EntityFramework2\EntityFramework2.vcxproj" (Build target(s)).
+     1>Done Building Project "z:\documents\Visual Studio 2015\Projects\EntityFramework\EntityFramework2\EntityFramework2.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.05
+Time Elapsed 00:00:01.98

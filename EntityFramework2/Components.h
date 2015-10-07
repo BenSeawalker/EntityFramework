@@ -1,3 +1,6 @@
+#ifndef COMPONENTS_H
+#define COMPONENTS_H
+
 enum CType { POSITION, SPRITE };
 
 /////////////////////////////////////////////
@@ -34,3 +37,5 @@ struct Sprite : Component
 	Sprite() : Component(SPRITE), image('\0') {};
 	Sprite(char _image) : Component(SPRITE), image(_image) {};
 };
+
+#endif
