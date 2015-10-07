@@ -11,13 +11,16 @@ int main()
 {
 	EntityManager EM;
 
-	EID eid = EM.CreateEntity({ new Position(5, 3) });
+	EID eid = EM.CreateEntity({ new Position(10, 2), new Sprite('$') });
 
-	Position * pos = static_cast<Position *>(EM.GetComponent(eid, POSITION));
-	cout << eid << " " << pos->type << " " << pos->x << " " << pos->y << endl;
+	Position * pos = EM.GetComponent<Position>(eid, POSITION);
+	Sprite * spr = EM.GetComponent<Sprite>(eid, SPRITE);
+	cout << eid << " " << pos->type << " " << pos->x << " " << pos->y << endl
+		<< spr->type << " " << spr->image << endl;
+
 
 	EM.DestroyComponent(eid, POSITION);
-	cout << EM.GetComponent(eid, POSITION) << endl;
+	cout << EM.GetComponent<Position>(eid, POSITION) << endl;
 	
 
 	EID e1 = EM.CreateEntity();
@@ -33,7 +36,7 @@ int main()
 	EM.DestroyComponent(eid, POSITION);
 
 	EM.DestroyEntity(eid);
-	EM.GetComponent(eid, POSITION);
+	EM.GetComponent<Position>(eid, POSITION);
 
 	cout << eid << " " << e1 << " " << e2 << " " << e3 << " " << e4 << endl;
 

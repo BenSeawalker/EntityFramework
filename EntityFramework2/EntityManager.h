@@ -22,23 +22,40 @@ public:
 	~EntityManager();
 
 	EID CreateEntity();
-	EID CreateEntity(ComponentList &_components);
+	EID CreateEntity(ComponentList _components);
 
 	void DestroyEntity(EID &_entity);
 
-	Component * GetComponent(EID _entity, CType _type);
-	int GetComponentIndex(EID _entity, CType _type);
+	void AddComponent(EID _entity, Component * _component);
+	void AddComponents(EID _entity, ComponentList _components);
 
 	void DestroyComponent(EID _entity, CType _type);
 
 	vector<EID> GetEntitiesWithComponent(CType _type);
 	vector<EID> GetEntitiesWithComponents(vector<CType> _types);
 
+	template<typename T>
+	T * GetComponent(EID _entity, CType _type);
+
 private:
 	map<EID, ComponentList> m_entities;
 
+	int GetComponentIndex(EID _entity, CType _type);
 	EID GetValidID();
 
 };
+
+
+template<typename T>
+T * EntityManager::GetComponent(EID _entity, CType _type)
+{
+	T * component = nullptr;
+	int index = GetComponentIndex(_entity, _type);
+
+	if (index >= 0)
+		component = static_cast<T *>(m_entities.find(_entity)->second[index]);
+
+	return component;
+}
 
 #endif //#ifndef ENTITYMANAGER_H

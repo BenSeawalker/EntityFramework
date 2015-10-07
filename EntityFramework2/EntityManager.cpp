@@ -27,7 +27,7 @@ EID EntityManager::CreateEntity()
 	return eid;
 }
 
-EID EntityManager::CreateEntity(ComponentList &_components)
+EID EntityManager::CreateEntity(ComponentList _components)
 {
 	EID eid = GetValidID();
 
@@ -48,6 +48,27 @@ void EntityManager::DestroyEntity(EID &_entity)
 	
 }
 
+
+
+void EntityManager::AddComponent(EID _entity, Component * _component)
+{
+	auto iter_entity = m_entities.find(_entity);
+	if (iter_entity != m_entities.end())
+	{
+		DestroyComponent(_entity, _component->type); // replace existing component...
+
+		iter_entity->second.push_back(_component);
+	}
+}
+
+
+void EntityManager::AddComponents(EID _entity, ComponentList _components)
+{
+	for each (auto component in _components)
+		AddComponent(_entity, component);
+}
+
+
 void EntityManager::DestroyComponent(EID _entity, CType _type)
 {
 	auto iter_entity = m_entities.find(_entity);
@@ -65,27 +86,29 @@ void EntityManager::DestroyComponent(EID _entity, CType _type)
 }
 
 
-Component * EntityManager::GetComponent(EID _entity, CType _type)
-{
-	Component * component = nullptr;
-	auto iter_entity = m_entities.find(_entity);
-	int index = GetComponentIndex(_entity, _type);
-
-	if (index >= 0)
-		component = iter_entity->second[index];
-
-	return component;
-}
+//template<typename T>
+//T * EntityManager::GetComponent(EID _entity, CType _type)
+//{
+//	T * component = nullptr;
+//	int index = GetComponentIndex(_entity, _type);
+//
+//	if (index >= 0)
+//		component = m_entities.find(_entity)->second[index];
+//
+//	return component;
+//}
 
 int EntityManager::GetComponentIndex(EID _entity, CType _type)
 {
-	bool found = false;
-	auto iter_entity = m_entities.find(_entity);
 	int component_index = -1;
-
+	auto iter_entity = m_entities.find(_entity);
+	
+	
 	if (iter_entity != m_entities.end())
 	{
 		auto components = iter_entity->second;
+
+		bool found = false;
 		for (UINT c = 0; c < components.size() && !found; ++c)
 		{
 			if (components[c]->type == _type)

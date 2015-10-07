@@ -10,6 +10,7 @@ struct Component
 	Component(CType _type) : type(_type){};
 };
 
+
 /////////////////////////////////////////////
 // POSITION
 /////
