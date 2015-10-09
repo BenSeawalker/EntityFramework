@@ -12,7 +12,6 @@ using std::pair;
 
 class System;
 
-
 typedef unsigned int UINT;
 
 

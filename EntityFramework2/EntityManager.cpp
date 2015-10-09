@@ -1,5 +1,9 @@
 #include "EntityManager.h"
 
+#include "System.h"
+#include "Components.h"
+
+
 typedef EntityManager::EID EID;
 
 EntityManager::EntityManager()
@@ -137,7 +141,7 @@ vector<EID> EntityManager::GetEntitiesWithComponents(vector<CType> _types)
 
 		bool has_components = true;
 		for (UINT i = 0; i < _types.size() && has_components; ++i)
-			has_components = (GetComponentIndex(entity, _types[i]) == -1);
+			has_components = (GetComponentIndex(entity, _types[i]) >= 0);
 
 		if (has_components)
 			entities.push_back(entity);
@@ -149,6 +153,7 @@ vector<EID> EntityManager::GetEntitiesWithComponents(vector<CType> _types)
 void EntityManager::AddSystem(System * _system)
 {
 	m_systems.push_back(_system);
+	_system->Update(*this);
 }
 
 void EntityManager::AddSystems(SystemList _systems)

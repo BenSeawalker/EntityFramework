@@ -5,6 +5,8 @@ using std::endl;
 
 #include "EntityManager.h"
 
+#include "Render.h"
+
 typedef EntityManager::EID EID;
 
 int main()
@@ -12,7 +14,7 @@ int main()
 	EntityManager EM;
 
 	EM.CreateEntity({ new Position(10, 2), new Sprite('$') });
-	EM.CreateEntity({ new Position(10, 2), new Sprite('@') });
+	EM.CreateEntity({ new Position(8, 5), new Sprite('@') });
 
 	EM.AddSystem(new Render());
 

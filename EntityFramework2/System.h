@@ -1,7 +1,7 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "EntityManager.h"
+class EntityManager;
 
 class System
 {
