@@ -3,11 +3,23 @@
 #include "System.h"
 #include "Components.h"
 
+#include <time.h>
+#include <thread>
+using std::thread;
+
 
 typedef EntityManager::EID EID;
 
+//void UpdateSystems(EntityManager * _this);
+
 EntityManager::EntityManager()
-{}
+	: m_running(true)
+{
+	thread system_loop(&EntityManager::UpdateSystems, *this, this);
+	system_loop.detach();
+}
+
+
 
 
 EntityManager::~EntityManager()
@@ -17,6 +29,11 @@ EntityManager::~EntityManager()
 		auto components = iter_entity.second;
 		for (UINT i = 0; i < components.size(); ++i)
 			delete components[i];
+	}
+
+	for each (System * system in m_systems)
+	{
+		delete system;
 	}
 }
 
@@ -153,7 +170,7 @@ vector<EID> EntityManager::GetEntitiesWithComponents(vector<CType> _types)
 void EntityManager::AddSystem(System * _system)
 {
 	m_systems.push_back(_system);
-	_system->Update(*this);
+	//_system->Update(*this);
 }
 
 void EntityManager::AddSystems(SystemList _systems)
@@ -172,4 +189,38 @@ EID EntityManager::GetValidID()
 		++eid;
 
 	return eid;
+}
+
+
+bool EntityManager::Running()
+{
+	return m_running;
+}
+
+void EntityManager::Running(bool _running)
+{
+	m_running = _running;
+}
+
+
+void EntityManager::UpdateSystems(EntityManager * _this)
+{
+	time_t last_time;
+	time_t current_time;
+
+	time(&last_time);
+	time(&current_time);
+
+	while (_this->m_running)
+	{
+		time(&current_time);
+
+		if (difftime(current_time, last_time) >= (1.0f / 1.0f))
+		{
+			time(&last_time);
+
+			for each (auto system in _this->m_systems)
+				system->Update(*_this);
+		}
+	}
 }

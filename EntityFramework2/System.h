@@ -6,7 +6,7 @@ class EntityManager;
 class System
 {
 public:
-	virtual void Update(EntityManager & _manager) {};
+	virtual void Update(EntityManager & _manager) = 0;
 };
 
 #endif

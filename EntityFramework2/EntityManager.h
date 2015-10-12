@@ -46,14 +46,18 @@ public:
 	template<typename T>
 	T * GetComponent(EID _entity, CType _type);
 
+	bool Running();
+	void Running(bool);
+
 private:
 	map<EID, ComponentList> m_entities;
 	SystemList m_systems;
+	bool m_running;
 
 	int GetComponentIndex(EID _entity, CType _type);
 	EID GetValidID();
 
-	
+	void UpdateSystems(EntityManager * _this);
 };
 
 ///////////////////////////////////////////////////

@@ -1,9 +1,6 @@
-﻿Build started 10/9/2015 11:04:10 AM.
+﻿Build started 10/12/2015 12:01:29 PM.
      1>Project "z:\documents\Visual Studio 2015\Projects\EntityFramework\EntityFramework2\EntityFramework2.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Render.cpp
-         Render.cpp
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"z:\documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"z:\documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"z:\documents\Visual Studio 2015\Projects\EntityFramework\Debug\EntityFramework2.lib" /MACHINE:X86 Debug\EntityManager.obj
          Debug\Main.obj
          Debug\Render.obj
@@ -12,4 +9,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.80
+Time Elapsed 00:00:01.46

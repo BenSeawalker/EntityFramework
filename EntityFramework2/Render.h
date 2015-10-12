@@ -13,7 +13,7 @@ public:
 	Render();
 	~Render();
 
-	void Update(EntityManager & _manager);
+	void System::Update(EntityManager & _manager);
 };
 
 #endif
